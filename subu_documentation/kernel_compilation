@@ -1,0 +1,45 @@
+
+Kernel compilation steps-
+
+Follow the steps below,
+
+-------------------------------------------------------------
+STEP #1: Download KErnel sources
+=====================
+
+// Sasken git mirror for kernel.org sources
+$git clone git://gitmirror/cm/download/kernels/linux.git
+$git branch -a
+$git checkout -b my_master master // Create a branch named my_master forked off "master" branch.
+$ head -n6 Makefile // To check the Linux kernel version
+
+-------------------------------------------------------------
+STEP #2: Build Kernel
+=============
+
+$make defconfig
+$make -j4
+// IT builds bzImage
+-------------------------------------------------------------
+STEP #3: Run QEMU
+============
+
+// this is my script to run the qemu
+subbunp@pcz-subbunp-1:/u/linux$ cat runqemu.sh
+#!/bin/sh
+
+KERNEL_BZ_PATH="/u/linux/kernel.org/linux/arch/x86/boot/bzImage"
+qemu-system-x86_64 -kernel ${KERNEL_BZ_PATH}  -initrd initramfs.igz -serial  stdio -append "console=ttyS0,115200 "
+-------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------
+Error resolution-
+
+1- +  install
+ + apt-get install bison
+ + apt-get install flex
+
+by installing this I'm able to proceed 
+

@@ -1,0 +1,52 @@
+I got the getSource_and_build.sh scripts from Chakradhar. This is what they are doing to get the sources
+ 
+>> #a) download_CAF_CODE
+>>  CAFTAG="LA.UM.6.3.r4-04500-sdm845.0"
+>>  repo init -q -u git://codeaurora.org/platform/manifest.git -b release -m ${CAFTAG}.xml
+ 
+>> #b) apply_android_patches()
+>> // From the already downloaded *.patch file, they are applying that., . This looks like proprietary code/driver for intrinsic development board.
+ 
+Now I want to find the details of the Kernel sources, so detailing out my analysis techniques for your reference,
+
+    Now using the tag - LA.UM.6.3.r4-04500-sdm845.0, I can find out the details of release done in CAF
+
+https://wiki.codeaurora.org/xwiki/bin/QAEP/release
+ 
+
+    Searching in https://source.codeaurora.org/quic/la/platform/manifest/refs/tags, I find the proper tag and commit here
+    Mainly I am interested in the Linux kernel source branch details in the located manifest file.
+    Looking at the Linux Kernel/msm-4.9 codebase, I find many branches including
+        r7-rel   branch – with 4.9.65  
+        latest being r31-rel branch – with 4.9.160
+
+ 
+Goal of this project.
+we will try to port Linux Kernel of Android Oreo from 4.9.65 to 4.9.160
+ 
+Approach
+To achieve the Goal, we will take the following steps
+
+   1- Understand the changes between 4.9.65 to 4.9.160
+        List down all the patch difference between those two tags
+        Check every patch and identify any possible impact to the current device – 845 Dev board.
+   2- Analyze the impact to the Proprietary components
+        Just like what we identified for Pixel 3 device today, identify the proprietary component and make a list of all its binaries.
+        The list of patches being applied in the getSource_and_build.sh.sh is required,
+        Analyze at a high level if it can possibly cause any problem with Linux kernel update
+   3- Start the Linux Kernel Upgrade
+        Decide on the approach of upgrade – Will you try compiling and fix failures or from the identified difference of previous exercise, fix any possible issues.  Or follow a different al together approach
+   4- Identify basic tests that needs to be done and run them
+   5- Look at the Logs – Kernel and android user space to cross check if there were any issues with the ports
+   6- Identify & Run basic Performance benchmarks on original and our ported code to ensure we have done the right job.
+
+ 
+Starting step
+
+  -  Set up android build environment to build the sources obtained from Intrinsyc. For all practical purpose everyone needs to have a workable build from their desktop that will boot the 845 device.
+  -  Your repo sync of the kernel/msm-4.9 should have latest branches too – Please confirm If you do,
+        $cd kernel/msm-4.9
+        $git branch -a  // should list kernel.lnx.4.9.r31-rel
+
+ 
+ 

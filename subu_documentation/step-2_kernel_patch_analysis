@@ -1,0 +1,18 @@
+Changing subject,
+ 
+
+  1- List down all the Intrinsyc applied patches and have a quick analysis summary
+  2- Build Android Oreo build only
+  3- Try flashing boot, system & vendor images alone and see the device booting up.
+  4- Find difference of Linux Kernel between tags - LA.UM.6.3.r4-04500-sdm845.0 to LA.UM.8.3 (O release) .r1-05800-sdm845.0 (Q release) – I have used the steps I explained and created this Excel - https://saskenit-my.sharepoint.com/:x:/g/personal/subbunp_sasken_com/ESCOBA2pKqxBn92wZVB7FXcBgXfej5gxMlWkAIbCRqN7IA?e=2tR3Sd
+    
+ 5-  Each of your analyze 10 patches each in this change list.
+        $git show  <commit-id>
+        From your view, fill the following
+            Patch type: choose one among the drop down list (bugfix, merge, feature, etc)
+            Owner: For starts, I have filled 10 to each one of you
+            Component: Use your judgement – usually it’s the directory name in the file changes or derive from subject lines
+            Notes: Any specific info u want to capture. This is not mandatory, usually useful for Features.
+
+ 
+

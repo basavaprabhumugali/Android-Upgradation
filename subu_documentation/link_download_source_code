@@ -1,0 +1,7 @@
+
+link to download source code
+
+repo init -u git://gitmirror/cm/download/codeaurora/sas-manifest-NEW.git -m LA.UM.6.3.r4-04500-sdm845.0.xml        repo sync
+
+repo init -u git://gitmirror/cm/download/codeaurora/sas-manifest-NEW.git -m LA.UM.8.3.r1-05800-sdm845.0.xml        repo sync
+

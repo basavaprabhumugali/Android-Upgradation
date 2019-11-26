@@ -1,0 +1,66 @@
+Qemu
+
+We can use Machine Emulator to do all our testing for Kernel modification. Qemu (https://www.qemu.org/) is a one of such tool.
+It can emulate any hardware based on generic architecture ARM/ARM64/X86/X86_64 and with generic RAM module, emulate hard dis/ interface/peripherals.
+For our Kernel testing we can use it effectively.
+ 
+   NOTE: Please note we are working on Intrinsyc board based on Qualcomm SOC-  SDM845, which actually used ARM64 for its application processor & other sub-system. We cannot emulate all those functionality using QEMU, however using QEMU we can mimic a ARM64/X86 based system, and this eases our learning on Linux kernel.
+ 
+Q- How to Use it ?
+
+    Identify the appropriate qemu type to download. 
+
+o-   I am having a 64 bit OS
+     # uname -a
+     Linux pcz-subbunp 3.13.0-24-generic #47-Ubuntu SMP Fri May 2 23:30:00 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+
+o-   So I downloaded 64 bit Qemu using apt-get
+     #apt-get install qemu-system-x86  // This also supported  i386 x86_64
+ 
+
+     Then I followed it up and downloaded busybox binary - 64 bit 
+
+     #apt-get install busybox-static  // this also is a 64 bit binary
+ 
+
+     You have the Kernel sources 4.9.186.
+        Configured for 64 bit kernel build & build the kernel 
+
+(kernel compilation steps)
+# make x86_64_defconfig # make -j8
+: :
+: :
+BUILD   arch/x86/boot/bzImage
+ 
+
+    Build the Intramfs
+
+ >> follow instruction from this to create initramfs - http://jootamam.net/howto-initramfs-image.htm
+ >> Use the downloaded 64 bit busybox
+ 
+Now start Qemu with build kernel & initramfs
+# qemu-system-x86_64 --kernel arch/x86/boot/bzImage --initrd /u/linux/work/initramfs.igz
+ 
+System should boot and you will be having a shell to work on.
+Your basic debugging can start from here.
+
+
+
+
+
+STEP #3: Run QEMU
+============
+
+// this is my script to run the qemu
+subbunp@pcz-subbunp-1:/u/linux$ cat runqemu.sh
+#!/bin/sh
+
+KERNEL_BZ_PATH="/u/linux/kernel.org/linux/arch/x86/boot/bzImage"
+
+qemu-system-x86_64 -kernel ${KERNEL_BZ_PATH}  -initrd initramfs.igz -serial  stdio -append "console=ttyS0,115200 "
+
+ex-  runqeme.sh content
+
+  #!/bin/sh
+  
+    qemu-system-x86_64 --kernel /u/linux/arch/x86/boot/bzImage --initrd initram    fs.igz -serial /dev/pts/20 -append "console=ttyS0,115200" 

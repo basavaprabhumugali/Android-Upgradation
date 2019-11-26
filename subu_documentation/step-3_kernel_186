@@ -1,0 +1,23 @@
+
+Replace kernel 4.9.65 to 4.9.186
+
+ 1.  You downloaded Intrinsync provided releases notes for Android O along with getSource_and_build.sh
+  2.  Able to download the complete AOSP sources. This contained the Linux kernel v4.9.65 version sources (in kernel/msm-4.9 folder)
+  3.  Build using this was successful (Mahima’s old email)
+  4.  This built image was flashed on sdm845 board by all of us day-before
+  5.  Now as part of upgrading kernel alone, we were supposed to download v4.9.186 kernel/msm-4.9 project alone. I believe this also was done as everyone were doing the kernel patch analysis using this sources.
+ 
+ 6.  We ought to replace just the kernel/msm-4.9 project with the latest one. This can be easily done using git branch checkout
+     *   We know QC's 10.0 Release is on CAF Tag - LA.UM.8.3.r1-05800-sdm845.0  - Linux Kernel 4.9.186. (Our Analysis Xcel’s README)
+     *   $ git tag | grep LA.UM.8.3.r1-05800
+        *   LA.UM.8.3.r1-05800-sdm845.0
+     *   $ git checkout -b my_tag_LA.UM.8.3.r1-05800-sdm845.0 LA.UM.8.3.r1-05800-sdm845.0
+        *   Switched to a new branch 'my_tag_LA.UM.8.3.r1-05800-sdm845.0'
+     *   $ head -n3 Makefile
+        *   VERSION = 4
+        *   PATCHLEVEL = 9
+        *   SUBLEVEL = 186
+
+  7.  Now the situation is AOSP code is Android Oreo, just that we upgraded to Linux Kernel 4.9.186
+  8.  Build and Flash to boot Android Oreo with 4.9.186
+
