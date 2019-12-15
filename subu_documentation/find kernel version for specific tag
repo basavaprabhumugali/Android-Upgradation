@@ -1,0 +1,25 @@
+Aim- Finding kernel version for specific tag and lastest kernel branch available
+
+Reqirements -   https://source.codeaurora.org/quic/la/platform/manifest
+
+                https://source.codeaurora.org/quic/la/kernel/msm-4.9
+
+                https://wiki.codeaurora.org/xwiki/bin/QAEP/release
+                
+ Approach -  To find exsisting kernel version
+ 
+   1-   Search for tag in https://wiki.codeaurora.org/xwiki/bin/QAEP/release link
+   2-   Search for specific tag in platform/manifest link and then find the kernel branch it is using 
+        eg:- name="kernel/msm-4.9" revision="refs/heads/kernel.lnx.4.9.r21-rel"/
+   3-   Search for kernel version for that branch in kernel/msm-4.9 link
+   
+   
+  Approach -  To find the latest kenrel branch in exisiting tag
+  
+  1- In AOSP , in kernel/msm-4.9 directory and do
+      $ git branch -a
+  2- See the latest kernel branch 
+  3- Git checkout to latest kernel branch
+  
+  
+  
